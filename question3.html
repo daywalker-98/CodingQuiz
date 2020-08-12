@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+     <div class="container">
+          <a href="./HighScores.html">View high scores</a>
+          <p style="float: right">time:<span id="time"></span></p>
+          <div class="col-12">
+               <h1 class="text-center">Question three:</h1>
+          </div><br />
+          <div class="container">
+               <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 col-sm-12">
+                         <p class="text-center">Arrays in javascript can be used to store ___________.</p>
+                    </div>
+               </div>
+               <div class="row">
+                    <div onclick="wrongAnswer();" class="col-md-3 col-sm-12">
+                         <button id="wrong1" onclick="wrongAnswer" type="button" class="btn btn-primary btn-lg btn-block">numbers and strings</button>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                         <button id="wrong2" type="button" class="btn btn-primary btn-lg btn-block">other arrays</button>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                         <button id="wrong3" type="button" class="btn btn-primary btn-lg btn-block">booleans</button>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                         <a href="./question4.html" type="button" class="btn btn-primary btn-lg btn-block">all of the above</a>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col"><p class="text-center" id="feedback"></p></div>
+               </div>
+          </div>
+     </div>
+     <script>
+          console.log('Script loaded properly');
+          //Creates a new time variable, which it sets to the value of time localStorage variable after converting it to an integer.
+          var time = parseInt(localStorage.time);
+          //Creates a new $timer variable, which it sets to the id 'time', which is held by a span tag within a p tag in the top right corner of the window.
+          var $timer = document.getElementById("time");
+          $timer.textContent = time;
+
+          //Gets ids of the incorrect answers.
+          var $wrong1 = document.getElementById("wrong1");
+          var $wrong2 = document.getElementById("wrong2");
+          var $wrong3 = document.getElementById("wrong3");
+          
+          //Adds event listeners which call the wrongAnswer function.
+          $wrong1.addEventListener("click", wrongAnswer);
+          $wrong2.addEventListener("click", wrongAnswer);
+          $wrong3.addEventListener("click", wrongAnswer);
+          
+          //Sets an interval which calls the countDown function once per every second.
+          setInterval(countDown, 1000);
+
+          //The wrongAnswer function, which is called whenever the user clicks an incorrect answer.
+          function wrongAnswer()
+          {
+               // Edits the p tag with the id 'feedback' to display feedback for any incorrect answers.
+               document.getElementById("feedback").textContent = "Wrong answer, try again!";
+               time = time-10;
+          }
+
+          //The countDown function
+          function countDown()
+          {
+               //Checks if the time variable is less than or equal to 0.
+               if(time <= 0)
+               {
+                    //If zero, opens the lose page for the option to try again
+                    window.open("./timeUp.html", "_self");
+                    localStorage.setItem("correctAnswers", "2");
+               }
+               {
+                    //If not, subtracts one from the time variable, adds or edits the localStorage variable "time", and edits the DOM to display the time in the top left corner within the span tag within the p tag that hols the id 'time', which is represented by the variable '$timer'.
+                    time--;
+                    $timer.textContent = time;
+                    localStorage.setItem("time", time);
+               }
+          }
+     </script>
+</body>
+</html>

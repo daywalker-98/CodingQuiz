@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+     <div class="container">
+          <a href="./HighScores.html">View high scores</a>
+          <p style="float: right">time:200</p>
+          <div class="col-12">
+               <h1 class="text-center">Add score</h1>
+          </div><br />
+          <div class="container">
+               <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 col-sm-12">
+                         <p class="text-center">Enter your initials below</p>
+                    </div>
+               </div>
+               <form class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                         <input class="form-control" rows="1" id="initials"></input>
+                         <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone.</small>
+                    </div>
+               </form>
+               <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                         <button id="submit" type="button" class="btn btn-primary btn-lg btn-block correct-answer">Submit</button>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <script>
+          var $submit = document.getElementById("submit");
+          $submit.addEventListener("click", submitScore);
+          function submitScore()
+          {
+               var time = parseInt(localStorage.time);var tIme = time;
+               var $initials = document.getElementById("initials");
+               var initials = $initials.value;
+               if(parseInt(localStorage.time) > 0)
+               {
+                    var score = {"initials": initials, "time": time};
+               }
+               else
+               {
+                    var score = {"initials": $initials.value, "correct answers": localStorage.correctAnswers};
+                    localStorage.removeItem("correctAnswers");
+               }
+               localStorage.removeItem("time");
+               window.open("./HighScores.html", "_self");
+               let i = 1;
+               
+               while (localStorage.getItem(`score${i}`))
+               {
+                    i++;
+               }
+               localStorage.setItem(`score${i}`, JSON.stringify(score));
+          }
+     </script>
+</body>
+</html>
